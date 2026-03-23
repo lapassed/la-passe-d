@@ -73,4 +73,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Handle past events automatically
+    const eventCards = document.querySelectorAll('.tournament-card[data-date]');
+    const now = new Date();
+
+    eventCards.forEach(card => {
+        const eventDate = new Date(card.getAttribute('data-date'));
+        if (now > eventDate) {
+            card.classList.add('passed');
+            const badge = card.querySelector('.badge');
+            if (badge) {
+                badge.className = 'badge passed';
+                badge.textContent = 'Passé';
+                badge.style.pointerEvents = 'none'; // Disable link if needed
+            }
+        }
+    });
+
 });
