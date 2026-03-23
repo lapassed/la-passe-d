@@ -82,11 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const eventDate = new Date(card.getAttribute('data-date'));
         if (now > eventDate) {
             card.classList.add('passed');
-            const badge = card.querySelector('.badge');
+            const badge = card.querySelector('.badge, .event-btn');
             if (badge) {
                 badge.className = 'badge passed';
                 badge.textContent = 'Passé';
                 badge.style.pointerEvents = 'none'; // Disable link if needed
+                badge.removeAttribute('href');
             }
         }
     });
