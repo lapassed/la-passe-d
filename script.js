@@ -212,30 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Custom Cursor Logic ---
-    const cursor = document.querySelector('.custom-cursor');
-    if (cursor) {
-        // Only activate if hover is supported
-        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-            document.addEventListener('mousemove', e => {
-                cursor.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
-            });
-
-            const interactables = document.querySelectorAll('a, button, input, textarea, summary, .faq-item');
-            
-            interactables.forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    cursor.classList.add('grow');
-                });
-                item.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('grow');
-                });
-            });
-        } else {
-            cursor.style.display = 'none';
-        }
-    }
-
     // --- Ripple Effect Logic ---
     const buttons = document.querySelectorAll('.btn');
     buttons.forEach(btn => {

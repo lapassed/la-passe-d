@@ -987,48 +987,6 @@ ul {
     }
 }
 
-/* Custom Cursor & Ripple */
-@media (hover: hover) and (pointer: fine) {
-    body {
-        cursor: none;
-    }
-    
-    a, button, input, textarea, summary {
-        cursor: none !important;
-    }
-
-    .custom-cursor {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 20px;
-        height: 20px;
-        background-color: var(--primary);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
-        mix-blend-mode: difference;
-    }
-    
-    [data-theme="dark"] .custom-cursor {
-        background-color: #ffffff;
-    }
-
-    .custom-cursor.grow {
-        width: 50px;
-        height: 50px;
-        background-color: transparent;
-        border: 2px solid var(--primary);
-        mix-blend-mode: normal;
-    }
-    
-    [data-theme="dark"] .custom-cursor.grow {
-        border-color: var(--primary);
-    }
-}
-
 /* Ripple Effect */
 .btn {
     position: relative;
