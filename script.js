@@ -92,4 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Scroll to top button visibility
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    if (scrollToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+    }
+
 });
