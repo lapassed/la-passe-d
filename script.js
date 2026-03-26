@@ -1,3 +1,12 @@
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.classList.add('hidden');
+        }
+    }, 600);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     // Scroll animations using Intersection Observer
     const appearOptions = {

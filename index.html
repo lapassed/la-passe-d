@@ -14,8 +14,11 @@
         content="L'association de référence pour les tournois de basket 3x3 et la culture streetball.">
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="assets/images/nouveau_logo.png">
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#121822">
+    <link rel="apple-touch-icon" href="assets/images/nouveau_logo.png">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     <!-- SEO: JSON-LD pour Organisation Sportive -->
@@ -32,6 +35,11 @@
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <img src="assets/images/nouveau_logo.png" alt="Chargement..." class="bounce-logo">
+    </div>
+
     <header class="navbar">
         <div class="container nav-content">
             <a href="#" class="logo">
@@ -239,7 +247,14 @@
         </svg>
     </a>
 
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=5"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(console.error);
+            });
+        }
+    </script>
 </body>
 
 </html>
