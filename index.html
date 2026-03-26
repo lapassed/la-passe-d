@@ -10,6 +10,7 @@
     <meta property="og:title" content="La Passe D - Tournois de Basketball 3x3">
     <meta property="og:description" content="L'association de référence pour les tournois de basket 3x3 et la culture streetball.">
     <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="assets/images/nouveau_logo.png">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 </head>
@@ -22,14 +23,18 @@
                 <span>La Passe D</span>
             </a>
             <nav class="nav-links">
-                <a href="#about">L'Association</a>
-                <a href="#tournaments">Tournois</a>
+                <a href="#about" class="nav-item">L'Association</a>
+                <a href="#tournaments" class="nav-item">Tournois</a>
                 <a href="#contact" class="btn btn-outline">Nous Contacter</a>
+                <button id="themeToggle" class="theme-toggle" aria-label="Passer en mode sombre">🌙</button>
             </nav>
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="mobile-controls">
+                <button id="themeToggleMobile" class="theme-toggle" aria-label="Passer en mode sombre">🌙</button>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </header>
@@ -40,7 +45,8 @@
             </div>
             <div class="hero-overlay"></div>
             <div class="container hero-content fade-in-up">
-                <img src="assets/images/Design sans titre.png" alt="The Assist" class="hero-title-img">
+                <h1 class="sr-only">La Passe D - Association et Tournois 3x3</h1>
+                <img src="assets/images/Design sans titre.png" alt="La Passe D" class="hero-title-img">
                 <p>Organisateur de tournois de Basketball 3x3. <br>L'accès à la culture basketball pour tous.</p>
                 <div class="hero-actions">
                     <a href="#tournaments" class="btn btn-primary">Voir les Tournois</a>
@@ -82,19 +88,8 @@
                 <div class="section-header fade-in">
                     <h2>Prochains <span>Événements</span></h2>
                 </div>
-                <div class="tournament-list fade-in-up">
-                    <div class="tournament-card" data-date="2026-04-02T19:00:00+02:00">
-                        <div class="date-badge">
-                            <span class="day">02</span>
-                            <span class="month">Avril</span>
-                        </div>
-                        <div class="info">
-                            <h3>Student Night Easter</h3>
-                            <p>Jeudi 02 Avril à 19h</p>
-                            <p style="font-size: 0.85rem; margin-top: 5px; font-style: italic;">En collaboration avec Le Basket Center</p>
-                        </div>
-                        <a href="http://urlr.me/pyBhdn" target="_blank" class="btn btn-primary event-btn" style="padding: 8px 20px; font-size: 0.9rem;">S'inscrire</a>
-                    </div>
+                <div class="tournament-list fade-in-up" id="eventsContainer">
+                    <!-- Events will be dynamically injected here by script.js -->
                 </div>
             </div>
         </section>

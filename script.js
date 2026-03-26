@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rootMargin: "0px 0px -50px 0px"
     };
 
-    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    const appearOnScroll = new IntersectionObserver(function (entries, observer) {
         entries.forEach(entry => {
             if (!entry.isIntersecting) {
                 return;
@@ -25,71 +25,133 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
+            navbar.classList.add('scrolled');
         } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.8)';
-            navbar.style.boxShadow = 'none';
+            navbar.classList.remove('scrolled');
         }
     });
 
-    // Mobile menu toggle (simple visual effect)
+    // Mobile menu toggle (smooth slide-in effect)
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
-    
-    menuToggle.addEventListener('click', () => {
-        // Toggle animation classes on hamburger
+
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         menuToggle.classList.toggle('active');
-        
-        // Very basic toggle, normally you'd animate height or slide-in
-        if (navLinks.style.display === 'flex') {
-            navLinks.style.display = 'none';
-        } else {
-            navLinks.style.display = 'flex';
-            navLinks.style.flexDirection = 'column';
-            navLinks.style.position = 'absolute';
-            navLinks.style.top = '80px';
-            navLinks.style.left = '0';
-            navLinks.style.width = '100%';
-            navLinks.style.background = 'rgba(255, 255, 255, 0.98)';
-            navLinks.style.padding = '20px 0';
+        navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
         }
     });
-    
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
-            if(target) {
+            if (target) {
                 target.scrollIntoView({
                     behavior: 'smooth'
                 });
-                
+
                 // Close mobile menu if open
-                if (window.innerWidth <= 900) {
-                    navLinks.style.display = 'none';
-                }
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
             }
         });
     });
 
-    // Handle past events automatically
-    const eventCards = document.querySelectorAll('.tournament-card[data-date]');
+    // Dynamic Events Generation
+    const eventsData = [
+        {
+            title: "Student Night Easter",
+            dateStr: "Jeudi 02 Avril à 19h",
+            datetime: "2026-04-02T19:00:00+02:00",
+            day: "02",
+            month: "Avril",
+            subtitle: "En collaboration avec Le Basket Center",
+            link: "http://urlr.me/pyBhdn"
+        }
+    ];
+
+    const eventsContainer = document.getElementById('eventsContainer');
     const now = new Date();
 
-    eventCards.forEach(card => {
-        const eventDate = new Date(card.getAttribute('data-date'));
-        if (now > eventDate) {
-            card.classList.add('passed');
-            const badge = card.querySelector('.badge, .event-btn');
-            if (badge) {
-                badge.className = 'badge passed';
-                badge.textContent = 'Passé';
-                badge.style.pointerEvents = 'none'; // Disable link if needed
-                badge.removeAttribute('href');
+    if (eventsContainer) {
+        eventsData.forEach(event => {
+            const eventDate = new Date(event.datetime);
+            const isPassed = now > eventDate;
+
+            const card = document.createElement('div');
+            card.className = `tournament-card ${isPassed ? 'passed' : ''}`;
+            card.innerHTML = `
+                <div class="date-badge">
+                    <span class="day">${event.day}</span>
+                    <span class="month">${event.month}</span>
+                </div>
+                <div class="info">
+                    <h3>${event.title}</h3>
+                    <p>${event.dateStr}</p>
+                    ${event.subtitle ? `<p style="font-size: 0.85rem; margin-top: 5px; font-style: italic;">${event.subtitle}</p>` : ''}
+                </div>
+                ${isPassed
+                    ? `<span class="badge passed" style="display: inline-block; padding: 8px 20px;">Passé</span>`
+                    : `<a href="${event.link}" target="_blank" class="btn btn-primary event-btn" style="padding: 8px 20px; font-size: 0.9rem;">S'inscrire</a>`
+                }
+            `;
+            eventsContainer.appendChild(card);
+        });
+    }
+
+    // ScrollSpy Logic
+    const sections = document.querySelectorAll('section');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (scrollY >= sectionTop - 150) {
+                current = section.getAttribute('id');
             }
-        }
+        });
+
+        navItems.forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href') === `#${current}`) {
+                a.classList.add('active');
+            }
+        });
+    });
+
+    // Theme Toggle (Dark Mode)
+    const themeToggles = document.querySelectorAll('.theme-toggle');
+    const htmlElement = document.documentElement;
+
+    // Check saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        htmlElement.setAttribute('data-theme', 'dark');
+        themeToggles.forEach(t => t.textContent = '☀️');
+    }
+
+    themeToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            if (htmlElement.getAttribute('data-theme') === 'dark') {
+                htmlElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeToggles.forEach(t => t.textContent = '🌙');
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggles.forEach(t => t.textContent = '☀️');
+            }
+        });
     });
 
     // Scroll to top button visibility
