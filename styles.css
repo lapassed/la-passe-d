@@ -866,3 +866,62 @@ ul {
     filter: invert(1);
     transition: filter 0.3s ease;
 }
+
+/* Mobile Fixes for New Elements */
+@media (max-width: 900px) {
+    .section-padding {
+        padding: 50px 0;
+    }
+    .hero-title-img {
+        max-height: 120px !important;
+    }
+    .hero p {
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+    }
+    .nav-links {
+        gap: 25px !important;
+    }
+    .hero-countdown {
+        padding: 15px 10px;
+        margin-bottom: 25px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .countdown-timer {
+        gap: 10px;
+        width: 100%;
+        justify-content: space-evenly;
+    }
+    .time-box span {
+        font-size: 1.6rem;
+    }
+    .time-box:not(:last-child)::after {
+        right: -6px;
+        font-size: 1.2rem;
+        top: 2px;
+    }
+    .time-box small {
+        font-size: 0.55rem;
+    }
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+    .hero-actions .btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    .faq-item summary {
+        padding: 15px 20px;
+        font-size: 1.1rem;
+    }
+    .faq-content {
+        padding: 0 20px 15px;
+    }
+}
