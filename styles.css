@@ -705,6 +705,130 @@ ul {
     height: 24px;
 }
 
+/* Hero Countdown */
+.hero-countdown {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(18, 24, 34, 0.6);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+[data-theme="dark"] .hero-countdown {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.hero-countdown > span {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.countdown-timer {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.time-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--primary);
+    color: var(--btn-primary-text);
+    padding: 10px 15px;
+    border-radius: 12px;
+    min-width: 70px;
+}
+
+.time-box span {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.time-box small {
+    font-size: 0.75rem;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+/* Gallery */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: var(--transition);
+}
+
+.gallery-img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* FAQ */
+.faq-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.faq-item summary {
+    padding: 20px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '+';
+    font-size: 1.5rem;
+    color: var(--primary);
+    transition: var(--transition);
+}
+
+.faq-item[open] summary::after {
+    content: '-';
+    transform: rotate(180deg);
+}
+
+.faq-content {
+    padding: 0 30px 20px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
 @media (max-width: 900px) {
     .scroll-to-top {
         bottom: 20px;

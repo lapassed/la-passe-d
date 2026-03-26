@@ -108,6 +108,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Countdown Timer Logic
+    const cdDays = document.getElementById('cd-days');
+    const cdHours = document.getElementById('cd-hours');
+    const cdMinutes = document.getElementById('cd-minutes');
+    const cdSeconds = document.getElementById('cd-seconds');
+    const countdownContainer = document.getElementById('countdown');
+
+    if (countdownContainer && eventsData.length > 0) {
+        // Find next event
+        let nextEventDate = null;
+        for (let event of eventsData) {
+            let d = new Date(event.datetime);
+            if (d > new Date()) {
+                nextEventDate = d;
+                break;
+            }
+        }
+
+        if (nextEventDate) {
+            const updateCountdown = () => {
+                const now = new Date();
+                const diff = nextEventDate - now;
+
+                if (diff <= 0) {
+                    countdownContainer.style.display = 'none';
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / 1000 / 60) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                cdDays.textContent = days.toString().padStart(2, '0');
+                cdHours.textContent = hours.toString().padStart(2, '0');
+                cdMinutes.textContent = minutes.toString().padStart(2, '0');
+                cdSeconds.textContent = seconds.toString().padStart(2, '0');
+            };
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        } else {
+            countdownContainer.style.display = 'none';
+        }
+    }
+
     // ScrollSpy Logic
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-item');

@@ -24,7 +24,9 @@
             </a>
             <nav class="nav-links">
                 <a href="#about" class="nav-item">L'Association</a>
+                <a href="#gallery" class="nav-item">Galerie</a>
                 <a href="#tournaments" class="nav-item">Tournois</a>
+                <a href="#faq" class="nav-item">FAQ</a>
                 <a href="#contact" class="btn btn-outline">Nous Contacter</a>
                 <button id="themeToggle" class="theme-toggle" aria-label="Passer en mode sombre">🌙</button>
             </nav>
@@ -47,6 +49,15 @@
             <div class="container hero-content fade-in-up">
                 <h1 class="sr-only">La Passe D - Association et Tournois 3x3</h1>
                 <img src="assets/images/Design sans titre.png" alt="La Passe D" class="hero-title-img">
+                <div id="countdown" class="hero-countdown">
+                    <span>Le prochain événement commence dans :</span>
+                    <div class="countdown-timer">
+                        <div class="time-box"><span id="cd-days">00</span><small>Jours</small></div>
+                        <div class="time-box"><span id="cd-hours">00</span><small>Heures</small></div>
+                        <div class="time-box"><span id="cd-minutes">00</span><small>Min</small></div>
+                        <div class="time-box"><span id="cd-seconds">00</span><small>Sec</small></div>
+                    </div>
+                </div>
                 <p>Organisateur de tournois de Basketball 3x3. <br>L'accès à la culture basketball pour tous.</p>
                 <div class="hero-actions">
                     <a href="#tournaments" class="btn btn-primary">Voir les Tournois</a>
@@ -83,6 +94,20 @@
             </div>
         </section>
 
+        <section class="gallery section-padding" id="gallery">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>Nos <span>Highlights</span></h2>
+                    <p class="subtitle">L'intensité du 3x3 en images.</p>
+                </div>
+                <div class="gallery-grid fade-in-up">
+                    <img src="assets/images/gallery-1.png" alt="Streetball action night" class="gallery-img">
+                    <img src="assets/images/gallery-2.png" alt="Huge dunk at sunset" class="gallery-img">
+                    <img src="assets/images/gallery-3.png" alt="Crowd watching 3x3 game" class="gallery-img">
+                </div>
+            </div>
+        </section>
+
         <section class="tournaments section-padding" id="tournaments">
             <div class="container">
                 <div class="section-header fade-in">
@@ -90,6 +115,35 @@
                 </div>
                 <div class="tournament-list fade-in-up" id="eventsContainer">
                     <!-- Events will be dynamically injected here by script.js -->
+                </div>
+            </div>
+        </section>
+
+        <section class="faq section-padding" id="faq">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>Foire Aux <span>Questions</span></h2>
+                    <p class="subtitle">Tout ce qu'il faut savoir avant de fouler le terrain.</p>
+                </div>
+                <div class="faq-accordion fade-in-up">
+                    <details class="faq-item">
+                        <summary>Comment puis-je inscrire mon équipe à un tournoi ?</summary>
+                        <div class="faq-content">
+                            <p>Les inscriptions se font entièrement en ligne via les liens présents dans la section "Prochains Événements". Attention, les places sont limitées !</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Faut-il forcément avoir une équipe de 4 (3+1) ?</summary>
+                        <div class="faq-content">
+                            <p>Il n'est pas obligatoire d'avoir un remplaçant, vous pouvez venir à 3. Cependant, en cas de blessure, vous devrez finir le tournoi à 2 ou déclarer forfait.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Quel est le niveau global attendu ?</summary>
+                        <div class="faq-content">
+                            <p>Nous accueillons tous les passionnés, du pur amateur au joueur confirmé ! Nos tournois sont souvent découpés en catégories (Loisir / Elite) pour que chaque match soit équilibré.</p>
+                        </div>
+                    </details>
                 </div>
             </div>
         </section>
