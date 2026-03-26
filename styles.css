@@ -1038,10 +1038,11 @@ ul {
 }
 
 .bounce-logo {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
     border-radius: 50%;
-    animation: bounce 1s cubic-bezier(0.28, 0.84, 0.42, 1) infinite alternate;
+    animation: bounce 0.8s cubic-bezier(0.28, 0.84, 0.42, 1) infinite alternate;
 }
 
 [data-theme="dark"] .bounce-logo {
@@ -1049,11 +1050,9 @@ ul {
 }
 
 @keyframes bounce {
-    0% { transform: scale(1,1) translateY(0); }
-    10% { transform: scale(1.1,.9) translateY(0); }
-    30% { transform: scale(.9,1.1) translateY(-50px); }
-    50% { transform: scale(1.05,.95) translateY(0); }
-    57% { transform: scale(1,1) translateY(-7px); }
-    64% { transform: scale(1,1) translateY(0); }
-    100% { transform: scale(1,1) translateY(0); }
+    0% { transform: translateY(0); }
+    20% { transform: translateY(-30px); }
+    50% { transform: translateY(0); }
+    75% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
 }
