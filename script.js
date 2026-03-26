@@ -212,4 +212,58 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Custom Cursor Logic ---
+    const cursor = document.querySelector('.custom-cursor');
+    if (cursor) {
+        // Only activate if hover is supported
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            document.addEventListener('mousemove', e => {
+                cursor.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
+            });
+
+            const interactables = document.querySelectorAll('a, button, input, textarea, summary, .faq-item');
+            
+            interactables.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    cursor.classList.add('grow');
+                });
+                item.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('grow');
+                });
+            });
+        } else {
+            cursor.style.display = 'none';
+        }
+    }
+
+    // --- Ripple Effect Logic ---
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            // Get coordinates relative to the button
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Create span element
+            const ripples = document.createElement('span');
+            ripples.style.left = x + 'px';
+            ripples.style.top = y + 'px';
+            ripples.classList.add('ripple');
+
+            // Calculate size based on button dimensions
+            const size = Math.max(rect.width, rect.height);
+            ripples.style.width = ripples.style.height = size + 'px';
+            // Adjust left/top to center the circle on click point
+            ripples.style.left = (x - size/2) + 'px';
+            ripples.style.top = (y - size/2) + 'px';
+
+            this.appendChild(ripples);
+
+            setTimeout(() => {
+                ripples.remove();
+            }, 600);
+        });
+    });
+
 });

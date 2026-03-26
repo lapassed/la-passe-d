@@ -15,10 +15,25 @@
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="assets/images/nouveau_logo.png">
     <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <!-- SEO: JSON-LD pour Organisation Sportive -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsOrganization",
+      "name": "La Passe D",
+      "url": "https://lapassed.fr",
+      "logo": "https://lapassed.fr/assets/images/nouveau_logo.png",
+      "description": "L'association de référence pour les tournois de basket 3x3 et la culture streetball en Alsace."
+    }
+    </script>
 </head>
 
 <body>
+    <!-- Curseur personnalisé -->
+    <div class="custom-cursor"></div>
     <header class="navbar">
         <div class="container nav-content">
             <a href="#" class="logo">
@@ -162,12 +177,25 @@
                 <a href="https://www.instagram.com/lapassed_off" class="btn btn-primary btn-large">Rejoins nous</a>
             </div>
         </section>
+
+        <section class="newsletter section-padding fade-in" id="newsletter">
+            <div class="container cta-container newsletter-container">
+                <div class="newsletter-content">
+                    <h2>Ne manque pas le prochain tournoi ! 🏀</h2>
+                    <p>Inscris-toi à notre alerte email pour être le premier averti de l'ouverture des inscriptions.</p>
+                </div>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Merci ! Ton email a bien été enregistré. (Démo)');">
+                    <input type="email" placeholder="Ton adresse email" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary newsletter-btn">M'alerter</button>
+                </form>
+            </div>
+        </section>
     </main>
 
     <footer class="footer" id="contact">
         <div class="container footer-content">
             <div class="footer-brand">
-                <img src="assets/images/nouveau_logo.png" alt="La Passe D Logo" class="footer-logo">
+                <img src="assets/images/nouveau_logo.png" alt="La Passe D Logo" class="footer-logo" loading="lazy">
                 <p>La Passe D - Organisation de tournois 3x3 en Alsace.</p>
             </div>
             <div class="footer-links">
