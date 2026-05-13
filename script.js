@@ -85,6 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
             month: "Avril",
             subtitle: "En collaboration avec Le Basket Center",
             link: "http://urlr.me/pyBhdn"
+        },
+        {
+            title: "Student Night: The Last Dance",
+            dateStr: "Samedi 20 Mai à 19h",
+            datetime: "2026-05-20T19:00:00+02:00",
+            day: "20",
+            month: "Mai",
+            subtitle: "En collaboration avec Le Basket Center",
+            link: "https://docs.google.com/forms/d/e/1FAIpQLScOcbDpbWzSUCGvZQ1IXZRdLRQzvQmB1XLMlHWmRmZSwjLkjQ/viewform"
         }
     ];
 
@@ -155,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cdMinutes.textContent = minutes.toString().padStart(2, '0');
                 cdSeconds.textContent = seconds.toString().padStart(2, '0');
             };
-            
+
             updateCountdown();
             setInterval(updateCountdown, 1000);
         } else {
@@ -224,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Ripple Effect Logic ---
     const buttons = document.querySelectorAll('.btn');
     buttons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', function (e) {
             // Get coordinates relative to the button
             const rect = btn.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -240,8 +249,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const size = Math.max(rect.width, rect.height);
             ripples.style.width = ripples.style.height = size + 'px';
             // Adjust left/top to center the circle on click point
-            ripples.style.left = (x - size/2) + 'px';
-            ripples.style.top = (y - size/2) + 'px';
+            ripples.style.left = (x - size / 2) + 'px';
+            ripples.style.top = (y - size / 2) + 'px';
 
             this.appendChild(ripples);
 
