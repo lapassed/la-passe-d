@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             title: "Student Night: The Last Dance",
-            dateStr: "Samedi 20 Mai à 19h",
+            dateStr: "Mercredi 20 Mai à 19h",
             datetime: "2026-05-20T19:00:00+02:00",
             day: "20",
             month: "Mai",
