@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Passe D</title>
+    <meta name="description"
+        content="La Passe D, association organisatrice de tournois de Basketball 3x3. Rejoignez notre communauté et accédez à la culture streetball.">
+    <meta name="keywords"
+        content="La Passe D, basket, 3x3, tournois basket, streetball, association sportive, basketball">
+    <meta property="og:title" content="La Passe D - Tournois de Basketball 3x3">
+    <meta property="og:description"
+        content="L'association de référence pour les tournois de basket 3x3 et la culture streetball.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://lapassed.fr/">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="manifest" href="/manifest.json?v=3">
+    <meta name="theme-color" content="#121822">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <!-- SEO: JSON-LD pour Organisation Sportive -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsOrganization",
+      "name": "La Passe D",
+      "url": "https://lapassed.fr",
+      "logo": "https://lapassed.fr/assets/images/nouveau_logo.png",
+      "description": "L'association de référence pour les tournois de basket 3x3 et la culture streetball en Alsace."
+    }
+    </script>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <img src="assets/images/nouveau_logo.png" alt="Chargement..." class="bounce-logo">
+    </div>
+
+    <header class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <img src="assets/images/nouveau_logo.png" alt="La Passe D Logo">
+                <span>La Passe D</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#about" class="nav-item">L'Association</a>
+                <!--<a href="#gallery" class="nav-item">Galerie</a>-->
+                <a href="#tournaments" class="nav-item">Tournois</a>
+                <a href="#faq" class="nav-item">FAQ</a>
+                <a href="#contact" class="btn btn-outline">Nous Contacter</a>
+                <button id="themeToggle" class="theme-toggle" aria-label="Passer en mode sombre">🌙</button>
+            </nav>
+            <div class="mobile-controls">
+                <button id="themeToggleMobile" class="theme-toggle" aria-label="Passer en mode sombre">🌙</button>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-bg" style="background-image: url('assets/images/background.jpg');">
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="container hero-content fade-in-up">
+                <h1 class="sr-only">La Passe D - Association et Tournois 3x3</h1>
+                <img src="assets/images/Design sans titre.png" alt="La Passe D" class="hero-title-img">
+                <div id="countdown" class="hero-countdown">
+                    <span>Le prochain événement commence dans :</span>
+                    <div class="countdown-timer">
+                        <div class="time-box"><span id="cd-days">00</span><small>Jours</small></div>
+                        <div class="time-box"><span id="cd-hours">00</span><small>Heures</small></div>
+                        <div class="time-box"><span id="cd-minutes">00</span><small>Min</small></div>
+                        <div class="time-box"><span id="cd-seconds">00</span><small>Sec</small></div>
+                    </div>
+                </div>
+                <p>Organisateur de tournois de Basketball 3x3. <br>L'accès à la culture basketball pour tous.</p>
+                <div class="hero-actions">
+                    <a href="#tournaments" class="btn btn-primary">Voir les Tournois</a>
+                    <a href="#about" class="btn btn-secondary">Découvrir l'Asso</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="about section-padding" id="about">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>Notre <span>Mission</span></h2>
+                    <p class="subtitle">Plus qu'un sport, un état d'esprit.</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-card fade-in-up" style="transition-delay: 0.1s;">
+                        <div class="icon">🏀</div>
+                        <h3>Tournois 3x3</h3>
+                        <p>Des événements compétitifs et conviviaux en plein cœur de la ville pour tous les niveaux.
+                            Rejoins le grind.</p>
+                    </div>
+                    <div class="about-card fade-in-up" style="transition-delay: 0.2s;">
+                        <div class="icon">🔥</div>
+                        <h3>Culture Basket</h3>
+                        <p>Art, musique, et lifestyle. Nous célébrons tout ce qui gravite autour de la balle orange.</p>
+                    </div>
+                    <div class="about-card fade-in-up" style="transition-delay: 0.3s;">
+                        <div class="icon">🤝</div>
+                        <h3>Communauté</h3>
+                        <p>Créer du lien, échanger et partager la passion du basket avec une communauté soudée et
+                            bienveillante.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--
+        <section class="gallery section-padding" id="gallery">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>Nos <span>Highlights</span></h2>
+                    <p class="subtitle">L'intensité du 3x3 en images.</p>
+                </div>
+                <div class="gallery-grid fade-in-up">
+                    <img src="assets/images/gallery-1.png" alt="Streetball action night" class="gallery-img">
+                    <img src="assets/images/gallery-2.png" alt="Huge dunk at sunset" class="gallery-img">
+                    <img src="assets/images/gallery-3.png" alt="Crowd watching 3x3 game" class="gallery-img">
+                </div>
+            </div>
+        </section> -->
+
+        <section class="tournaments section-padding" id="tournaments">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>Prochains <span>Événements</span></h2>
+                </div>
+                <div class="tournament-list fade-in-up" id="eventsContainer">
+                    <!-- Events will be dynamically injected here by script.js -->
+                </div>
+            </div>
+        </section>
+
+        <section class="faq section-padding" id="faq">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2>Foire Aux <span>Questions</span></h2>
+                    <p class="subtitle">Tout ce qu'il faut savoir avant de fouler le terrain.</p>
+                </div>
+                <div class="faq-accordion fade-in-up">
+                    <details class="faq-item">
+                        <summary>Comment puis-je inscrire mon équipe à un tournoi ?</summary>
+                        <div class="faq-content">
+                            <p>Les inscriptions se font entièrement en ligne via les liens présents dans la section
+                                "Prochains Événements". Attention, les places sont limitées !</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Faut-il forcément avoir une équipe de 4 (3+1) ?</summary>
+                        <div class="faq-content">
+                            <p>Il n'est pas obligatoire d'avoir un remplaçant, vous pouvez venir à 3. Cependant, en cas
+                                de blessure, vous devrez finir le tournoi à 2 ou déclarer forfait.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Quel est le niveau global attendu ?</summary>
+                        <div class="faq-content">
+                            <p>Nous accueillons tous les passionnés, du pur amateur au joueur confirmé ! Nos tournois
+                                sont souvent découpés en catégories (Loisir / Elite) pour que chaque match soit
+                                équilibré.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter section-padding fade-in" id="newsletter">
+            <div class="container cta-container newsletter-container">
+                <div class="newsletter-content">
+                    <h2>Ne manque pas le prochain tournoi ! 🏀</h2>
+                    <p>Inscris-toi à notre alerte email pour être le premier averti de l'ouverture des inscriptions.</p>
+                </div>
+                <form class="newsletter-form"
+                    onsubmit="event.preventDefault(); alert('Merci ! Ton email a bien été enregistré.');">
+                    <input type="email" placeholder="Ton adresse email" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary newsletter-btn">M'alerter</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <img src="assets/images/nouveau_logo.png" alt="La Passe D Logo" class="footer-logo" loading="lazy">
+                <p>La Passe D - Organisation de tournois 3x3 en Alsace.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Liens Rapides</h4>
+                <ul>
+                    <li><a href="#about">L'Association</a></li>
+                    <li><a href="#tournaments">Tournois</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p>Email: <a href="mailto:contact@lapassed.fr">lapassed52@gmail.com</a></p>
+                <div class="socials">
+                    <a href="https://www.instagram.com/lapassed_off" class="social-icon" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/company/la-passe-d-off" class="social-icon" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                            </path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@lapassed_off" class="social-icon" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 La Passe D. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <a href="#home" id="scrollToTopBtn" class="scroll-to-top" aria-label="Retour en haut">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+    <script src="script.js?v=6"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(console.error);
+            });
+        }
+    </script>
+</body>
+
+</html>

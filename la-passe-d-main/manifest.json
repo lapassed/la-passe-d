@@ -1,0 +1,21 @@
+{
+  "name": "La Passe D",
+  "short_name": "La Passe D",
+  "description": "L'association de référence pour les tournois de basket 3x3 et la culture streetball en Alsace.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#121822",
+  "theme_color": "#121822",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
