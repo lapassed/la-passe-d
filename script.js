@@ -260,4 +260,69 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Soumission du formulaire d'alerte email vers Google Sheets
+    const newsletterForm = document.getElementById('newsletterForm');
+    const newsletterMessage = document.getElementById('newsletterMessage');
+    const newsletterSubmitBtn = document.getElementById('newsletterSubmitBtn');
+    
+    // URL du Google Apps Script pour l'enregistrement des emails (Google Sheets)
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwu8no05VRWjoz_ioG_8qrEJB3smIxaD5_87Ett7p6iE8P0CL7B2g9H17Z5UllmBvM2/exec";
+
+    if (newsletterForm) {
+        // 3. Amélioration UX : Vérification si déjà inscrit
+        if (localStorage.getItem('subscribed_to_newsletter') === 'true') {
+            newsletterForm.style.display = "none";
+            const rgpd = document.getElementById('rgpdText');
+            if(rgpd) rgpd.style.display = "none";
+            newsletterMessage.style.display = "block";
+            newsletterMessage.textContent = "🏀 Tu es déjà sur notre liste d'attente !";
+        }
+
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 1. Honeypot (Anti-spam)
+            const honeypot = document.getElementById('honeypot');
+            if (honeypot && honeypot.value !== "") {
+                // C'est un robot ! On fait comme si de rien n'était pour le tromper.
+                newsletterForm.style.display = "none";
+                const rgpd = document.getElementById('rgpdText');
+                if(rgpd) rgpd.style.display = "none";
+                newsletterMessage.style.display = "block";
+                newsletterMessage.textContent = "Merci ! Ton email a bien été enregistré. On te préviendra dès l'ouverture !";
+                return;
+            }
+
+            if (GOOGLE_SCRIPT_URL === "URL_DE_TON_SCRIPT_GOOGLE_ICI") {
+                alert("L'URL du script Google Sheets n'a pas encore été configurée !");
+                return;
+            }
+
+            const formData = new FormData(newsletterForm);
+            newsletterSubmitBtn.textContent = "Envoi...";
+            newsletterSubmitBtn.disabled = true;
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                // Enregistrement dans le navigateur de l'utilisateur
+                localStorage.setItem('subscribed_to_newsletter', 'true');
+                
+                newsletterForm.style.display = "none";
+                const rgpd = document.getElementById('rgpdText');
+                if(rgpd) rgpd.style.display = "none";
+                newsletterMessage.style.display = "block";
+                newsletterMessage.textContent = "Merci ! Ton email a bien été enregistré. On te préviendra dès l'ouverture !";
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                newsletterSubmitBtn.textContent = "M'alerter";
+                newsletterSubmitBtn.disabled = false;
+                alert("Une erreur est survenue lors de l'inscription. Merci de réessayer.");
+            });
+        });
+    }
+
 });

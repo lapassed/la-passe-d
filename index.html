@@ -184,11 +184,15 @@
                     <h2>Ne manque pas le prochain tournoi ! 🏀</h2>
                     <p>Inscris-toi à notre alerte email pour être le premier averti de l'ouverture des inscriptions.</p>
                 </div>
-                <form class="newsletter-form"
-                    onsubmit="event.preventDefault(); alert('Merci ! Ton email a bien été enregistré.');">
-                    <input type="email" placeholder="Ton adresse email" required class="newsletter-input">
-                    <button type="submit" class="btn btn-primary newsletter-btn">M'alerter</button>
+                <!-- Formulaire Newsletter (Relié à Google Sheets via JS) -->
+                <form id="newsletterForm" class="newsletter-form">
+                    <!-- Champ Honeypot (Anti-spam invisible) -->
+                    <input type="text" name="website" id="honeypot" style="display:none" tabindex="-1" autocomplete="off">
+                    <input type="email" name="email" placeholder="Ton adresse email" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary newsletter-btn" id="newsletterSubmitBtn">M'alerter</button>
                 </form>
+                <p id="rgpdText" style="font-size: 0.75rem; opacity: 0.7; margin-top: 10px;">Vos données ne seront jamais revendues et servent uniquement à vous avertir de nos événements.</p>
+                <div id="newsletterMessage" style="display: none; margin-top: 15px; font-weight: bold; color: var(--accent-color);"></div>
             </div>
         </section>
     </main>
