@@ -306,15 +306,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 body: formData
             })
-            .then(response => {
-                // Enregistrement dans le navigateur de l'utilisateur
-                localStorage.setItem('subscribed_to_newsletter', 'true');
-                
+            .then(response => response.text())
+            .then(text => {
                 newsletterForm.style.display = "none";
                 const rgpd = document.getElementById('rgpdText');
                 if(rgpd) rgpd.style.display = "none";
                 newsletterMessage.style.display = "block";
-                newsletterMessage.textContent = "Merci ! Ton email a bien été enregistré. On te préviendra dès l'ouverture !";
+
+                if (text === "Exists") {
+                    newsletterMessage.textContent = "🏀 Cet email est déjà inscrit sur notre liste d'attente !";
+                } else {
+                    newsletterMessage.textContent = "Merci ! Ton email a bien été enregistré. On te préviendra dès l'ouverture !";
+                }
+                
+                // Enregistrement dans le navigateur pour masquer le form aux prochaines visites
+                localStorage.setItem('subscribed_to_newsletter', 'true');
             })
             .catch(error => {
                 console.error('Error!', error.message);
