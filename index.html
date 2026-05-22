@@ -16,7 +16,7 @@
     <link rel="canonical" href="https://lapassed.fr/">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="shortcut icon" href="/favicon.png">
-    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="stylesheet" href="styles.css?v=9">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="manifest" href="/manifest.json?v=3">
     <meta name="theme-color" content="#121822">
@@ -50,7 +50,7 @@
             </a>
             <nav class="nav-links">
                 <a href="#about" class="nav-item">L'Association</a>
-                <!--<a href="#gallery" class="nav-item">Galerie</a>-->
+                <a href="#gallery" class="nav-item">Galerie</a>
                 <a href="#tournaments" class="nav-item">Tournois</a>
                 <a href="#faq" class="nav-item">FAQ</a>
                 <a href="#contact" class="btn btn-outline">Nous Contacter</a>
@@ -119,7 +119,6 @@
                 </div>
             </div>
         </section>
-        <!--
         <section class="gallery section-padding" id="gallery">
             <div class="container">
                 <div class="section-header fade-in">
@@ -127,13 +126,14 @@
                     <p class="subtitle">L'intensité du 3x3 en images.</p>
                 </div>
                 <div class="gallery-grid fade-in-up">
-                    <img src="assets/images/gallery-1.png" alt="Streetball action night" class="gallery-img">
-                    <img src="assets/images/gallery-2.png" alt="Huge dunk at sunset" class="gallery-img">
-                    <img src="assets/images/gallery-3.png" alt="Crowd watching 3x3 game" class="gallery-img">
+                    <img src="assets/images/gallery-1.jpg" alt="Dunk spectaculaire en plein match lors d'un tournoi de basket 3x3 La Passe D" class="gallery-img" loading="lazy">
+                    <img src="assets/images/gallery-2.jpg" alt="Joueur s'envolant vers le panier avec ballon en main" class="gallery-img" loading="lazy">
+                    <img src="assets/images/gallery-3.jpg" alt="Tir en suspension décisif au-dessus de la défense adverse" class="gallery-img" loading="lazy">
+                    <img src="assets/images/gallery-4.jpg" alt="Célébration chaleureuse et sourires entre coéquipiers sur le terrain" class="gallery-img" loading="lazy">
+                    <img src="assets/images/gallery-5.jpg" alt="Joueur de basket 3x3 posant avec le ballon de streetball" class="gallery-img" loading="lazy">
                 </div>
             </div>
-        </section> -->
-
+        </section>
         <section class="tournaments section-padding" id="tournaments">
             <div class="container">
                 <div class="section-header fade-in">
@@ -187,12 +187,16 @@
                 <!-- Formulaire Newsletter (Relié à Google Sheets via JS) -->
                 <form id="newsletterForm" class="newsletter-form">
                     <!-- Champ Honeypot (Anti-spam invisible) -->
-                    <input type="text" name="website" id="honeypot" style="display:none" tabindex="-1" autocomplete="off">
+                    <input type="text" name="website" id="honeypot" style="display:none" tabindex="-1"
+                        autocomplete="off">
                     <input type="email" name="email" placeholder="Ton adresse email" required class="newsletter-input">
-                    <button type="submit" class="btn btn-primary newsletter-btn" id="newsletterSubmitBtn">M'alerter</button>
+                    <button type="submit" class="btn btn-primary newsletter-btn"
+                        id="newsletterSubmitBtn">M'alerter</button>
                 </form>
-                <p id="rgpdText" style="font-size: 0.75rem; opacity: 0.7; margin-top: 10px;">Vos données ne seront jamais revendues et servent uniquement à vous avertir de nos événements.</p>
-                <div id="newsletterMessage" style="display: none; margin-top: 15px; font-weight: bold; color: var(--accent-color);"></div>
+                <p id="rgpdText" style="font-size: 0.75rem; opacity: 0.7; margin-top: 10px;">Vos données ne seront
+                    jamais revendues et servent uniquement à vous avertir de nos événements.</p>
+                <div id="newsletterMessage"
+                    style="display: none; margin-top: 15px; font-weight: bold; color: var(--accent-color);"></div>
             </div>
         </section>
     </main>
@@ -253,7 +257,7 @@
         </svg>
     </a>
 
-    <script src="script.js?v=6"></script>
+    <script src="script.js?v=7"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
