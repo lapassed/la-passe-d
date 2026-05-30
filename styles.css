@@ -202,10 +202,10 @@ ul {
 }
 
 .logo img {
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
     object-fit: contain;
-    border-radius: 50%;
+    border-radius: 0;
 }
 
 .nav-links {
@@ -512,9 +512,11 @@ ul {
 }
 
 .footer-logo {
-    height: 120px;
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
     margin-bottom: 20px;
-    border-radius: 50%;
+    border-radius: 0;
 }
 
 .footer-brand p {
@@ -1056,10 +1058,10 @@ ul {
 }
 
 .bounce-logo {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
-    border-radius: 50%;
+    border-radius: 0;
     animation: bounce 0.8s cubic-bezier(0.28, 0.84, 0.42, 1) infinite alternate;
 }
 
