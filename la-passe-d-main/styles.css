@@ -860,10 +860,25 @@ ul {
 }
 
 /* Invert logos and specific images in dark mode */
-[data-theme="dark"] .logo img,
-[data-theme="dark"] .footer-logo,
+[data-theme="dark"] .footer-logo {
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease;
+}
+
+.logo .logo-dark {
+    display: none;
+}
+
+[data-theme="dark"] .logo .logo-light {
+    display: none;
+}
+
+[data-theme="dark"] .logo .logo-dark {
+    display: block;
+}
+
 [data-theme="dark"] .hero-title-img {
-    filter: invert(1);
+    filter: brightness(0) invert(1) drop-shadow(0 5px 15px rgba(0,0,0,0.5));
     transition: filter 0.3s ease;
 }
 
@@ -1046,7 +1061,7 @@ ul {
 }
 
 [data-theme="dark"] .bounce-logo {
-    filter: invert(1);
+    filter: brightness(0) invert(1);
 }
 
 @keyframes bounce {

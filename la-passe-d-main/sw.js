@@ -1,11 +1,12 @@
-const CACHE_NAME = 'lapassed-v4';
+const CACHE_NAME = 'lapassed-v5';
 const urlsToCache = [
   '/',
   '/index.html',
   '/styles.css',
   '/script.js',
   '/favicon.png',
-  '/assets/images/nouveau_logo.png'
+  '/assets/images/nouveau_logo.png',
+  '/assets/images/logo blanc.png'
 ];
 
 self.addEventListener('install', event => {
