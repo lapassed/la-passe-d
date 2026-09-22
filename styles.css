@@ -477,6 +477,58 @@ ul {
     opacity: 0.6;
 }
 
+.survey-banner {
+    margin-top: 35px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 107, 0, 0.05) 100%);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.survey-banner:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary);
+}
+
+.survey-info {
+    flex: 1;
+}
+
+.survey-info h3 {
+    font-size: 1.3rem;
+    margin-top: 8px;
+    margin-bottom: 6px;
+    color: var(--text-color);
+}
+
+.survey-info p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.survey-btn {
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .survey-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+    }
+    .survey-btn {
+        width: 100%;
+    }
+}
+
 .cta-container {
     background: var(--cta-bg);
     border: 1px solid var(--border-color);
@@ -875,21 +927,19 @@ ul {
     }
 }
 
-/* Invert logos and specific images in dark mode */
-[data-theme="dark"] .footer-logo {
-    filter: brightness(0) invert(1);
-    transition: filter 0.3s ease;
-}
-
-.logo .logo-dark {
+/* Logo dark mode switching (Navbar and Footer) */
+.logo .logo-dark,
+.footer-logo-dark {
     display: none;
 }
 
-[data-theme="dark"] .logo .logo-light {
+[data-theme="dark"] .logo .logo-light,
+[data-theme="dark"] .footer-logo-light {
     display: none;
 }
 
-[data-theme="dark"] .logo .logo-dark {
+[data-theme="dark"] .logo .logo-dark,
+[data-theme="dark"] .footer-logo-dark {
     display: block;
 }
 

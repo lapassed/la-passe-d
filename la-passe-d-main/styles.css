@@ -859,21 +859,19 @@ ul {
     }
 }
 
-/* Invert logos and specific images in dark mode */
-[data-theme="dark"] .footer-logo {
-    filter: brightness(0) invert(1);
-    transition: filter 0.3s ease;
-}
-
-.logo .logo-dark {
+/* Logo dark mode switching (Navbar and Footer) */
+.logo .logo-dark,
+.footer-logo-dark {
     display: none;
 }
 
-[data-theme="dark"] .logo .logo-light {
+[data-theme="dark"] .logo .logo-light,
+[data-theme="dark"] .footer-logo-light {
     display: none;
 }
 
-[data-theme="dark"] .logo .logo-dark {
+[data-theme="dark"] .logo .logo-dark,
+[data-theme="dark"] .footer-logo-dark {
     display: block;
 }
 
