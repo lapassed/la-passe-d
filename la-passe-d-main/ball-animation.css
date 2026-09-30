@@ -1,0 +1,210 @@
+/* ============================================================
+   BALL-ANIMATION.CSS — "L'Action" — Scroll-driven basketball
+   ============================================================ */
+
+:root {
+    --ball-size: 60px;
+    --ball-bg: #ffffff;
+    --ball-lines: #121822;
+}
+
+[data-theme="dark"] {
+    --ball-bg: #ffffff;
+    --ball-lines: #121822;
+}
+
+/* === SCENE CONTAINER (fixed, full viewport) === */
+.ball-scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 90; /* Le ballon passe DEVANT les images, photos et cartes */
+    overflow: visible;
+}
+
+/* La navigation reste au-dessus du ballon */
+.navbar {
+    z-index: 100 !important;
+}
+.mobile-controls {
+    z-index: 101 !important;
+}
+
+/* === BALL ELEMENT === */
+.ball-el {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--ball-size, 68px);
+    height: var(--ball-size, 68px);
+    will-change: transform, opacity;
+    filter: drop-shadow(0 4px 14px rgba(18, 24, 34, 0.28));
+    pointer-events: none;
+}
+
+.ball-el svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* === BALL SHADOW === */
+.ball-shadow-el {
+    position: absolute;
+    width: calc(var(--ball-size, 68px) * 0.75);
+    height: 10px;
+    background: radial-gradient(ellipse, rgba(18, 24, 34, 0.35) 0%, transparent 72%);
+    border-radius: 50%;
+    will-change: transform, opacity, width;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+/* === GHOST TRAIL (crossover & fast moves) === */
+.ball-ghost {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--ball-size, 68px);
+    height: var(--ball-size, 68px);
+    opacity: 0;
+    will-change: transform, opacity;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 8px rgba(18, 24, 34, 0.15));
+}
+
+.ball-ghost svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* === HOOP (Act 4 & 5 uniquement) === */
+.ball-hoop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 120px;
+    will-change: transform, opacity;
+    pointer-events: none;
+    color: var(--text-main);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ball-hoop svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.ball-hoop .hoop-structure {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    transition: stroke-dashoffset 0.05s linear;
+}
+
+.ball-hoop .hoop-rim {
+    stroke: var(--secondary, #6ea4e6);
+}
+
+.net-strand {
+    transform-origin: 50px 48px;
+    will-change: transform;
+    transition: transform 0.06s ease-out;
+}
+
+/* Shockwave ring at rim */
+.swish-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid var(--secondary, #6ea4e6);
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+/* === PASS TRAJECTORY LINE (Act 3 uniquement) === */
+.ball-pass-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ball-pass-line path {
+    fill: none;
+    stroke: var(--secondary, #6ea4e6);
+    stroke-width: 3;
+    stroke-dasharray: 12 8;
+    stroke-linecap: round;
+    opacity: 0.85;
+    filter: drop-shadow(0 2px 6px rgba(18, 24, 34, 0.35));
+}
+
+/* === FLASH OVERLAY === */
+.ball-flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 4;
+    transition: opacity 0.08s ease-out;
+}
+
+/* === CTA PULSE ON SWISH === */
+.cta-swish-pulse {
+    animation: ctaSwishBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes ctaSwishBounce {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.08); box-shadow: 0 0 20px rgba(110, 164, 230, 0.4); }
+    100% { transform: scale(1); }
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+    .ball-scene,
+    .ball-flash {
+        display: none !important;
+    }
+}
+
+/* === MOBILE ADJUSTMENTS === */
+@media (max-width: 768px) {
+    :root {
+        --ball-size: 40px;
+    }
+    .ball-ghost {
+        display: none !important;
+    }
+    .ball-pass-line path {
+        stroke-width: 2;
+        stroke-dasharray: 8 6;
+    }
+    .ball-hoop {
+        width: 75px;
+        height: 90px;
+    }
+}
+
+/* Manual disable class if needed */
+.no-ball-story .ball-scene {
+    display: none !important;
+}

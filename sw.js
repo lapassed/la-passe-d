@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lapassed-v8';
+const CACHE_NAME = 'lapassed-v9';
 const urlsToCache = [
   '/',
   '/index.html',

@@ -7,6 +7,8 @@
     --primary: #121822;
     --primary-hover: #2a364a;
     --secondary: #6ea4e6;
+    --tertiary: #99daff;
+    --accent-color: #99daff;
     
     --btn-primary-text: #ffffff;
     --btn-secondary-bg: rgba(18, 24, 34, 0.1);
@@ -35,7 +37,9 @@
     
     --primary: #6ea4e6;
     --primary-hover: #93c5fd;
-    --secondary: #38bdf8;
+    --secondary: #99daff;
+    --tertiary: #99daff;
+    --accent-color: #99daff;
     
     --btn-primary-text: #0f172a;
     --btn-secondary-bg: rgba(255, 255, 255, 0.1);
@@ -456,7 +460,7 @@ ul {
 }
 
 .badge.open {
-    background: rgba(0, 210, 255, 0.1);
+    background: rgba(153, 218, 255, 0.15);
     color: var(--secondary);
     border: 1px solid var(--secondary);
 }

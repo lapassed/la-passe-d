@@ -1,0 +1,868 @@
+/* ============================================================
+   ANIMATIONS.CSS — La Passe D Basketball Identity Animations
+   ============================================================
+   Every animation can be disabled individually via a CSS class
+   on <html>:  .no-preloader, .no-court-lines, .no-parallax,
+   .no-shot-clock, .no-bounce-scroll, .no-scoreboard,
+   .no-parquet, .no-cursor, .no-footer-ball, .no-nav-bounce,
+   .no-cta-arc, .no-midcourt, .no-ball-trail, .no-logo-spin
+   
+   Global speed multiplier: --anim-speed (default 1)
+   ============================================================ */
+
+:root {
+    --anim-speed: 1;
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .preloader-ball,
+    .court-lines-svg,
+    .parallax-ball,
+    .footer-bounce-ball,
+    .custom-cursor,
+    .ball-trail-particle,
+    .midcourt-line,
+    .cta-arc-wrapper {
+        display: none !important;
+    }
+}
+
+/* === PRELOADER: TIP-OFF === */
+#preloader {
+    background-color: #121822 !important;
+    flex-direction: column;
+    gap: 0;
+}
+
+#preloader .bounce-logo {
+    animation: none;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#preloader.tipoff-reveal .bounce-logo {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.preloader-ball {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    z-index: 1000000;
+}
+
+.preloader-ball svg {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes tipoff-bounce {
+    0% {
+        transform: translateY(-200px) scaleX(1) scaleY(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    35% {
+        transform: translateY(30px) scaleX(1.2) scaleY(0.75);
+    }
+    50% {
+        transform: translateY(-80px) scaleX(0.95) scaleY(1.05);
+    }
+    70% {
+        transform: translateY(20px) scaleX(1.1) scaleY(0.85);
+    }
+    85% {
+        transform: translateY(-30px) scaleX(1) scaleY(1);
+    }
+    100% {
+        transform: translateY(0) scaleX(1) scaleY(1);
+        opacity: 0;
+    }
+}
+
+.preloader-ball.animate {
+    animation: tipoff-bounce calc(1.2s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1) forwards;
+}
+
+.html-no-preloader #preloader {
+    display: none !important;
+}
+
+/* === HERO: COURT LINES SVG === */
+.court-lines-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.08;
+}
+
+.court-lines-svg path,
+.court-lines-svg circle,
+.court-lines-svg rect,
+.court-lines-svg line {
+    stroke: var(--text-main);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    transition: stroke-dashoffset calc(2s * var(--anim-speed)) ease-out;
+}
+
+.court-lines-svg.drawn path,
+.court-lines-svg.drawn circle,
+.court-lines-svg.drawn rect,
+.court-lines-svg.drawn line {
+    stroke-dashoffset: 0;
+}
+
+.no-court-lines .court-lines-svg {
+    display: none !important;
+}
+
+/* === DRIBBLING BALL (full-page companion) === */
+.dribble-container {
+    position: fixed;
+    z-index: 90;
+    pointer-events: none;
+    will-change: transform;
+    /* positioned via JS */
+}
+
+.dribble-ball {
+    width: 38px;
+    height: 38px;
+    position: relative;
+    will-change: transform;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+.dribble-ball svg {
+    width: 100%;
+    height: 100%;
+}
+
+.dribble-shadow {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    width: 30px;
+    height: 6px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    will-change: transform, opacity;
+}
+
+.dribble-impact {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid var(--secondary);
+    border-radius: 50%;
+    transform: translateX(-50%) scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dribble-impact.ripple-active {
+    animation: impact-ripple calc(0.5s * var(--anim-speed)) ease-out forwards;
+}
+
+@keyframes impact-ripple {
+    0% {
+        transform: translateX(-50%) scale(0);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateX(-50%) scale(4);
+        opacity: 0;
+    }
+}
+
+/* Play path SVG */
+.dribble-path {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 89;
+}
+
+.dribble-path line {
+    stroke: var(--secondary);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 4;
+    opacity: 0.12;
+    stroke-linecap: round;
+}
+
+.no-parallax .dribble-container,
+.no-parallax .dribble-path {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .dribble-container,
+    .dribble-path {
+        display: none !important;
+    }
+}
+
+/* === SCROLL: BOUNCE-IN SECTIONS === */
+.bounce-in-section {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity calc(0.6s * var(--anim-speed)) ease,
+                transform calc(0.6s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1);
+}
+
+.bounce-in-section.appear {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.no-bounce-scroll .bounce-in-section {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* === SCROLL: CASCADE CARDS (passe) === */
+/* Override old .fade-in-up when our animation classes are present */
+.bounce-in-section.fade-in-up,
+.bounce-in-section.fade-in {
+    transition: opacity calc(0.6s * var(--anim-speed)) ease,
+                transform calc(0.6s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1);
+}
+
+.cascade-card {
+    opacity: 0;
+    transform: translateX(-40px) rotate(-3deg);
+    transition: opacity calc(0.5s * var(--anim-speed)) ease,
+                transform calc(0.6s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1);
+}
+
+.cascade-card.fade-in-up {
+    transform: translateX(-40px) rotate(-3deg);
+}
+
+.cascade-card.appear {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg) !important;
+}
+
+.cascade-card:nth-child(2) {
+    transition-delay: calc(0.1s * var(--anim-speed));
+}
+
+.cascade-card:nth-child(3) {
+    transition-delay: calc(0.2s * var(--anim-speed));
+}
+
+.cascade-card:nth-child(4) {
+    transition-delay: calc(0.3s * var(--anim-speed));
+}
+
+.cascade-card:nth-child(5) {
+    transition-delay: calc(0.4s * var(--anim-speed));
+}
+
+/* === SCROLL: SCOREBOARD LED NUMBERS === */
+.scoreboard-number {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    position: relative;
+    overflow: hidden;
+}
+
+.scoreboard-number.counting {
+    animation: led-flicker calc(0.1s * var(--anim-speed)) step-end infinite;
+}
+
+@keyframes led-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.no-scoreboard .scoreboard-number {
+    animation: none !important;
+}
+
+/* === SCROLL: MIDCOURT LINE === */
+.midcourt-line {
+    display: block;
+    width: 80%;
+    max-width: 600px;
+    height: 2px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.midcourt-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--border-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform calc(0.8s * var(--anim-speed)) ease-out;
+}
+
+.midcourt-line::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    transform: translateX(-50%) scale(0);
+    transition: transform calc(0.5s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1) calc(0.6s * var(--anim-speed));
+}
+
+.midcourt-line.drawn::before {
+    transform: scaleX(1);
+}
+
+.midcourt-line.drawn::after {
+    transform: translateX(-50%) scale(1);
+}
+
+.no-midcourt .midcourt-line {
+    display: none !important;
+}
+
+/* === INTERACTIONS: LOGO SPIN DRIBBLE === */
+.logo:hover .logo-light,
+.logo:hover .logo-dark {
+    animation: spin-dribble calc(0.6s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1);
+}
+
+@keyframes spin-dribble {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.no-logo-spin .logo:hover .logo-light,
+.no-logo-spin .logo:hover .logo-dark {
+    animation: none !important;
+}
+
+/* === INTERACTIONS: NAV LINK BOUNCE UNDERLINE === */
+.nav-links a:not(.btn)::after {
+    transition: width calc(0.4s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1) !important;
+}
+
+.no-nav-bounce .nav-links a:not(.btn)::after {
+    transition: width var(--transition) !important;
+}
+
+/* === INTERACTIONS: PARQUET CARD 3D TILT === */
+.about-card,
+.tournament-card,
+.faq-item,
+.survey-banner {
+    transform-style: preserve-3d;
+    perspective: 800px;
+}
+
+.parquet-shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255,255,255,0.12) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity calc(0.3s * var(--anim-speed)) ease;
+    border-radius: inherit;
+    z-index: 1;
+}
+
+.about-card:hover .parquet-shine,
+.tournament-card:hover .parquet-shine,
+.faq-item:hover .parquet-shine,
+.survey-banner:hover .parquet-shine {
+    opacity: 1;
+}
+
+.no-parquet .parquet-shine {
+    display: none !important;
+}
+
+.no-parquet .about-card,
+.no-parquet .tournament-card,
+.no-parquet .faq-item,
+.no-parquet .survey-banner {
+    transform-style: flat !important;
+}
+
+/* === INTERACTIONS: CUSTOM CURSOR === */
+.custom-cursor {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--secondary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999998;
+    opacity: 0.5;
+    transition: width calc(0.2s * var(--anim-speed)) ease,
+                height calc(0.2s * var(--anim-speed)) ease,
+                border-color calc(0.2s * var(--anim-speed)) ease,
+                background calc(0.2s * var(--anim-speed)) ease,
+                opacity calc(0.2s * var(--anim-speed)) ease;
+    will-change: transform;
+}
+
+.custom-cursor.hovering {
+    width: 40px;
+    height: 40px;
+    background: rgba(110, 164, 230, 0.1);
+    border-color: var(--secondary);
+    opacity: 0.7;
+}
+
+.no-cursor .custom-cursor {
+    display: none !important;
+}
+
+/* Hide cursor on mobile */
+@media (max-width: 768px) {
+    .custom-cursor {
+        display: none !important;
+    }
+}
+
+@media (hover: none) {
+    .custom-cursor {
+        display: none !important;
+    }
+}
+
+/* === FOOTER: BOUNCING BALL === */
+.footer-bounce-container {
+    position: relative;
+    height: 80px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.footer-bounce-ball {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 10px;
+    animation: footer-ball-bounce calc(2s * var(--anim-speed)) ease-in-out infinite;
+}
+
+.footer-bounce-ball svg {
+    width: 100%;
+    height: 100%;
+}
+
+.footer-ball-shadow {
+    width: 30px;
+    height: 6px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 4px;
+    animation: footer-shadow-squash calc(2s * var(--anim-speed)) ease-in-out infinite;
+}
+
+@keyframes footer-ball-bounce {
+    0%, 100% {
+        transform: translateY(0) scaleY(0.9) scaleX(1.05);
+    }
+    50% {
+        transform: translateY(-50px) scaleY(1) scaleX(1);
+    }
+}
+
+@keyframes footer-shadow-squash {
+    0%, 100% {
+        transform: scaleX(1.3);
+        opacity: 0.4;
+    }
+    50% {
+        transform: scaleX(0.6);
+        opacity: 0.15;
+    }
+}
+
+.no-footer-ball .footer-bounce-container {
+    display: none !important;
+}
+
+/* === CTA: ARC SHOT HOVER === */
+.cta-arc-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cta-mini-hoop {
+    position: absolute;
+    right: -50px;
+    top: -20px;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity calc(0.3s * var(--anim-speed)) ease;
+}
+
+.cta-arc-ball {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 5;
+}
+
+.cta-arc-ball svg,
+.cta-mini-hoop svg {
+    width: 100%;
+    height: 100%;
+}
+
+.cta-arc-wrapper:hover .cta-mini-hoop {
+    opacity: 1;
+}
+
+.cta-arc-wrapper:hover .cta-arc-ball {
+    animation: arc-shot calc(0.8s * var(--anim-speed)) cubic-bezier(.2,.8,.3,1) forwards;
+}
+
+@keyframes arc-shot {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    40% {
+        transform: translate(20px, -50px);
+    }
+    70% {
+        transform: translate(35px, -30px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(40px, -10px);
+    }
+}
+
+/* Hoop net wiggle */
+.cta-mini-hoop .net-line {
+    stroke-dasharray: 4 2;
+}
+
+.cta-arc-wrapper:hover .cta-mini-hoop .net-line {
+    animation: net-swish calc(0.4s * var(--anim-speed)) ease-out calc(0.6s * var(--anim-speed));
+}
+
+@keyframes net-swish {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(2px); }
+    50% { transform: translateX(-2px); }
+    75% { transform: translateX(1px); }
+    100% { transform: translateX(0); }
+}
+
+/* Buzzer flash on click */
+@keyframes buzzer-flash {
+    0% { box-shadow: 0 0 0 0 rgba(110, 164, 230, 0.6); }
+    50% { box-shadow: 0 0 30px 10px rgba(110, 164, 230, 0.4); }
+    100% { box-shadow: 0 0 0 0 rgba(110, 164, 230, 0); }
+}
+
+.btn-primary.buzzer {
+    animation: buzzer-flash calc(0.3s * var(--anim-speed)) ease-out;
+}
+
+.no-cta-arc .cta-arc-wrapper .cta-mini-hoop,
+.no-cta-arc .cta-arc-wrapper .cta-arc-ball {
+    display: none !important;
+}
+
+/* === BALL TRAIL === */
+.ball-trail-particle {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    animation: trail-fade calc(0.6s * var(--anim-speed)) ease-out forwards;
+}
+
+.ball-trail-particle svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+
+@keyframes trail-fade {
+    0% { opacity: 0.4; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.3); }
+}
+
+.no-ball-trail .ball-trail-particle {
+    display: none !important;
+}
+
+/* === EASTER EGG: BALL RAIN === */
+.ball-rain-particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999997;
+    animation: ball-rain calc(3s * var(--anim-speed)) ease-in forwards;
+}
+
+.ball-rain-particle svg {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes ball-rain {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* === SHOT CLOCK TEXT REVEAL (hero subtitle) === */
+.shot-clock-char {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+.shot-clock-char .char-final {
+    opacity: 0;
+    transition: opacity calc(0.15s * var(--anim-speed)) ease;
+}
+
+.shot-clock-char .char-scramble {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.shot-clock-char.revealed .char-final {
+    opacity: 1;
+}
+
+.shot-clock-char.revealed .char-scramble {
+    opacity: 0;
+}
+
+/* === SOUND TOGGLE BUTTON === */
+.sound-toggle {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 99;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    opacity: 0.7;
+}
+
+.sound-toggle:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .sound-toggle {
+        bottom: 20px;
+        left: 20px;
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* === NEW: SCROLL PROGRESS BAR === */
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, var(--secondary), var(--tertiary));
+    z-index: 999999;
+    transition: width 0.1s linear;
+    pointer-events: none;
+    border-radius: 0 2px 2px 0;
+    box-shadow: 0 0 8px rgba(110, 164, 230, 0.4);
+}
+
+.no-scroll-progress .scroll-progress-bar {
+    display: none !important;
+}
+
+/* === NEW: GALLERY STAGGER REVEAL === */
+.gallery-stagger {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+    transition: opacity calc(0.6s * var(--anim-speed)) ease,
+                transform calc(0.7s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1);
+}
+
+.gallery-stagger.gallery-visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.no-gallery-stagger .gallery-stagger {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* === NEW: FAQ BOUNCE OPEN === */
+.faq-bounce-in {
+    animation: faq-bounce-enter calc(0.4s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1);
+}
+
+@keyframes faq-bounce-enter {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px) scaleY(0.9);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(3px) scaleY(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
+}
+
+.no-faq-bounce .faq-bounce-in {
+    animation: none !important;
+}
+
+/* === NEW: SOCIAL ICONS DRIBBLE HOVER === */
+.social-icon.social-dribble {
+    animation: social-dribble-anim calc(0.5s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1);
+}
+
+@keyframes social-dribble-anim {
+    0% { transform: translateY(0); }
+    20% { transform: translateY(-8px) scale(1.1); }
+    40% { transform: translateY(2px) scale(0.95); }
+    60% { transform: translateY(-4px) scale(1.05); }
+    80% { transform: translateY(1px); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+.no-social-dribble .social-icon.social-dribble {
+    animation: none !important;
+}
+
+/* === NEW: COUNTDOWN DIGIT FLIP === */
+.digit-flip-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    perspective: 200px;
+}
+
+.time-box span.digit-flipping {
+    animation: digit-flip calc(0.4s * var(--anim-speed)) cubic-bezier(.34,1.56,.64,1);
+}
+
+@keyframes digit-flip {
+    0% {
+        transform: rotateX(0);
+    }
+    30% {
+        transform: rotateX(-90deg);
+        opacity: 0.5;
+    }
+    60% {
+        transform: rotateX(30deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: rotateX(0);
+        opacity: 1;
+    }
+}
+
+.no-countdown-flip .digit-flipping {
+    animation: none !important;
+}
+
+/* === NEW: HERO GRAIN TEXTURE === */
+.hero-grain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+    mix-blend-mode: overlay;
+}
+
+.no-grain .hero-grain {
+    display: none !important;
+}
+
+/* === NEW: MAGNETIC BUTTONS === */
+.magnetic-btn {
+    transition: transform calc(0.2s * var(--anim-speed)) cubic-bezier(.25,.8,.25,1) !important;
+}
+
+.no-magnetic .magnetic-btn {
+    transition: var(--transition) !important;
+}
