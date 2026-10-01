@@ -17,9 +17,8 @@
     <link rel="canonical" href="https://lapassed.fr/">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="shortcut icon" href="/favicon.png">
-    <link rel="stylesheet" href="styles.css?v=13">
+    <link rel="stylesheet" href="styles.css?v=15">
     <link rel="stylesheet" href="animations.css?v=1">
-    <link rel="stylesheet" href="ball-animation.css?v=5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="manifest" href="/manifest.json?v=3">
     <meta name="theme-color" content="#121822">
@@ -46,6 +45,35 @@
 </head>
 
 <body>
+    <!-- Court Background SVG — demi-terrain 3x3 filigrane, tracé progressif au scroll -->
+    <svg id="courtBg" class="court-bg" viewBox="0 0 1100 1500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <defs>
+            <filter id="chalk" x="-2%" y="-2%" width="104%" height="104%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="1" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+        </defs>
+        <g id="courtLines" filter="url(#chalk)">
+            <!-- 1. Baseline (ligne de fond) -->
+            <line id="court-baseline" x1="50" y1="1400" x2="1050" y2="1400" data-order="1"/>
+            <!-- 2. Raquette (free-throw lane) côtés -->
+            <line id="court-lane-left" x1="370" y1="1400" x2="370" y2="955" data-order="2"/>
+            <line id="court-lane-right" x1="730" y1="1400" x2="730" y2="955" data-order="2"/>
+            <line id="court-lane-top" x1="370" y1="955" x2="730" y2="955" data-order="2"/>
+            <!-- 3. Cercle de lancer franc -->
+            <circle id="court-ft-circle" cx="550" cy="955" r="180" data-order="3"/>
+            <!-- 4. Arc à 3 points (6.75 m, rayon proportionnel) -->
+            <path id="court-3pt-arc" d="M 87,1400 L 87,1095 A 613,613 0 0,1 1013,1095 L 1013,1400" data-order="4"/>
+            <!-- 5. Demi-cercle de non-charge (1.25 m) -->
+            <path id="court-no-charge" d="M 437,1400 A 113,113 0 0,1 663,1400" data-order="5"/>
+            <!-- 6. Panier : planche + cercle -->
+            <line id="court-backboard" x1="490" y1="1378" x2="610" y2="1378" data-order="6"/>
+            <circle id="court-rim" cx="550" cy="1348" r="23" data-order="6"/>
+            <!-- 6b. Accent point (appears with the rim) -->
+            <circle id="court-accent" cx="550" cy="1348" r="4" data-order="6"/>
+        </g>
+    </svg>
+
     <!-- Preloader -->
     <div id="preloader">
         <img src="assets/images/Logo v3.PNG" alt="Chargement..." class="bounce-logo">
@@ -79,7 +107,7 @@
     </header>
 
     <main>
-        <section class="hero" id="home" data-act="1">
+        <section class="hero" id="home" data-court="hero">
             <div class="hero-bg" style="background-image: url('assets/images/background.jpg');">
             </div>
             <div class="hero-overlay"></div>
@@ -103,7 +131,7 @@
             </div>
         </section>
 
-        <section class="about section-padding" id="about" data-act="2">
+        <section class="about section-padding" id="about" data-court="about">
             <div class="container">
                 <div class="section-header fade-in">
                     <h2>Notre <span>Mission</span></h2>
@@ -130,7 +158,8 @@
                 </div>
             </div>
         </section>
-        <section class="gallery section-padding" id="gallery" data-act="3">
+
+        <section class="gallery section-padding" id="gallery" data-court="gallery">
             <div class="container">
                 <div class="section-header fade-in">
                     <h2>Nos <span>Highlights</span></h2>
@@ -154,7 +183,8 @@
                 </div>
             </div>
         </section>
-        <section class="tournaments section-padding" id="tournaments" data-act="4">
+
+        <section class="tournaments section-padding" id="tournaments" data-court="tournaments">
             <div class="container">
                 <div class="section-header fade-in">
                     <h2>Prochains <span>Événements</span></h2>
@@ -173,7 +203,7 @@
             </div>
         </section>
 
-        <section class="faq section-padding" id="faq" data-act="5">
+        <section class="faq section-padding" id="faq" data-court="faq">
             <div class="container">
                 <div class="section-header fade-in">
                     <h2>Foire Aux <span>Questions</span></h2>
@@ -206,7 +236,7 @@
             </div>
         </section>
 
-        <section class="newsletter section-padding fade-in" id="newsletter">
+        <section class="newsletter section-padding fade-in" id="newsletter" data-court="cta">
             <div class="container cta-container newsletter-container">
                 <div class="newsletter-content">
                     <h2>Ne manque pas le prochain tournoi ! 🏀</h2>
@@ -287,9 +317,8 @@
         </svg>
     </a>
 
-    <script src="script.js?v=7"></script>
-    <script src="animations.js?v=1"></script>
-    <script src="ball-animation.js?v=5"></script>
+    <script src="script.js?v=8"></script>
+    <script src="animations.js?v=2"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

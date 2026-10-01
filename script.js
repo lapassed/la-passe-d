@@ -1,3 +1,97 @@
+const COURT_CONFIG = {
+    strokeOpacity: 0.10,
+    lerpFactor: 0.08,
+    parallaxAmp: 3, // % of scroll
+    haloEnabled: true,
+    mobileBreakpoint: 1024
+};
+
+(function initCourtBackground() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < COURT_CONFIG.mobileBreakpoint) {
+        return;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const paths = document.querySelectorAll('#courtLines path, #courtLines circle, #courtLines rect, #courtLines line');
+        const courtLinesGroup = document.getElementById('courtLines');
+        const accent = document.getElementById('court-accent');
+        if (!paths.length || !courtLinesGroup) return;
+
+        let totalLength = 0;
+        const pathData = [];
+
+        paths.forEach(p => {
+            if (p.id === 'court-accent') return;
+            let len = 1000;
+            if (p.getTotalLength) {
+                len = p.getTotalLength();
+            } else {
+                const bbox = p.getBBox();
+                len = (bbox.width + bbox.height) * 2;
+            }
+            p.style.strokeDasharray = len;
+            p.style.strokeDashoffset = len;
+            pathData.push({ el: p, length: len });
+            totalLength += len;
+        });
+
+        let currentScroll = 0;
+        let targetScroll = 0;
+        let isDrawing = false;
+
+        window.addEventListener('scroll', () => {
+            targetScroll = window.scrollY;
+            if (!isDrawing) {
+                isDrawing = true;
+                requestAnimationFrame(drawLoop);
+            }
+        }, { passive: true });
+
+        function drawLoop() {
+            currentScroll += (targetScroll - currentScroll) * COURT_CONFIG.lerpFactor;
+            
+            const scrollPercent = currentScroll / (document.documentElement.scrollHeight - window.innerHeight);
+            
+            // Draw lines
+            pathData.forEach(p => {
+                const drawLength = p.length * scrollPercent * 2; // finish drawing at 50% scroll
+                p.el.style.strokeDashoffset = Math.max(0, p.length - drawLength);
+            });
+
+            // Accent
+            if (scrollPercent > 0.6 && accent) {
+                accent.classList.add('show');
+            } else if (accent) {
+                accent.classList.remove('show');
+            }
+
+            // Parallax
+            const parallax = scrollPercent * COURT_CONFIG.parallaxAmp;
+            courtLinesGroup.style.transform = `translate3d(0, -${parallax}%, 0)`;
+
+            if (Math.abs(targetScroll - currentScroll) > 0.5) {
+                requestAnimationFrame(drawLoop);
+            } else {
+                isDrawing = false;
+            }
+        }
+
+        // Halo
+        if (COURT_CONFIG.haloEnabled) {
+            const halo = document.createElement('div');
+            halo.className = 'court-halo active';
+            document.body.appendChild(halo);
+            document.addEventListener('mousemove', (e) => {
+                halo.style.setProperty('--halo-x', e.clientX + 'px');
+                halo.style.setProperty('--halo-y', e.clientY + 'px');
+            }, { passive: true });
+        }
+        
+        // initial trigger
+        window.dispatchEvent(new Event('scroll'));
+    });
+})();
+
 window.addEventListener('load', () => {
     setTimeout(() => {
         const preloader = document.getElementById('preloader');
@@ -88,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             title: "Student Night: The Last Dance",
-            dateStr: "Mercredi 20 Mai à 19h",
+            dateStr: "Samedi 20 Mai à 19h",
             datetime: "2026-05-20T19:00:00+02:00",
             day: "20",
             month: "Mai",
@@ -259,78 +353,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 600);
         });
     });
-
-    // Soumission du formulaire d'alerte email vers Google Sheets
-    const newsletterForm = document.getElementById('newsletterForm');
-    const newsletterMessage = document.getElementById('newsletterMessage');
-    const newsletterSubmitBtn = document.getElementById('newsletterSubmitBtn');
-    
-    // URL du Google Apps Script pour l'enregistrement des emails (Google Sheets)
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwu8no05VRWjoz_ioG_8qrEJB3smIxaD5_87Ett7p6iE8P0CL7B2g9H17Z5UllmBvM2/exec";
-
-    if (newsletterForm) {
-        // 3. Amélioration UX : Vérification si déjà inscrit
-        if (localStorage.getItem('subscribed_to_newsletter') === 'true') {
-            newsletterForm.style.display = "none";
-            const rgpd = document.getElementById('rgpdText');
-            if(rgpd) rgpd.style.display = "none";
-            newsletterMessage.style.display = "block";
-            newsletterMessage.textContent = "🏀 Tu es déjà sur notre liste d'attente !";
-        }
-
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // 1. Honeypot (Anti-spam)
-            const honeypot = document.getElementById('honeypot');
-            if (honeypot && honeypot.value !== "") {
-                // C'est un robot ! On fait comme si de rien n'était pour le tromper.
-                newsletterForm.style.display = "none";
-                const rgpd = document.getElementById('rgpdText');
-                if(rgpd) rgpd.style.display = "none";
-                newsletterMessage.style.display = "block";
-                newsletterMessage.textContent = "Merci ! Ton email a bien été enregistré. On te préviendra dès l'ouverture !";
-                return;
-            }
-
-            if (GOOGLE_SCRIPT_URL === "URL_DE_TON_SCRIPT_GOOGLE_ICI") {
-                alert("L'URL du script Google Sheets n'a pas encore été configurée !");
-                return;
-            }
-
-            const formData = new FormData(newsletterForm);
-            newsletterSubmitBtn.textContent = "Envoi...";
-            newsletterSubmitBtn.disabled = true;
-
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(text => {
-                newsletterForm.style.display = "none";
-                const rgpd = document.getElementById('rgpdText');
-                if(rgpd) rgpd.style.display = "none";
-                newsletterMessage.style.display = "block";
-
-                if (text === "Exists") {
-                    newsletterMessage.textContent = "🏀 Cet email est déjà inscrit sur notre liste d'attente !";
-                } else {
-                    newsletterMessage.textContent = "Merci ! Ton email a bien été enregistré. On te préviendra dès l'ouverture !";
-                }
-                
-                // Enregistrement dans le navigateur pour masquer le form aux prochaines visites
-                localStorage.setItem('subscribed_to_newsletter', 'true');
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                newsletterSubmitBtn.textContent = "M'alerter";
-                newsletterSubmitBtn.disabled = false;
-                alert("Une erreur est survenue lors de l'inscription. Merci de réessayer.");
-            });
-        });
-    }
-
-
 
 });
